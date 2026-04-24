@@ -1,0 +1,457 @@
+.oracle-widget-launcher,
+.oracle-widget-panel,
+.oracle-widget-panel *,
+.oracle-widget-overlay {
+  box-sizing: border-box;
+}
+
+.whatsapp-fixed,
+.was {
+  display: none !important;
+}
+
+.oracle-widget-root {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  font-family: inherit;
+}
+
+.oracle-widget-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 15, 27, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+}
+
+.oracle-widget-launcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #0d2947, #1f6fd2);
+  color: #fff;
+  box-shadow: 0 18px 38px rgba(10, 24, 43, 0.24);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+}
+
+.oracle-widget-launcher:hover,
+.oracle-widget-launcher:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 44px rgba(10, 24, 43, 0.28);
+}
+
+.oracle-widget-launcher:focus-visible,
+.oracle-widget-close:focus-visible,
+.oracle-widget-submit:focus-visible,
+.oracle-widget-suggestion:focus-visible,
+.oracle-widget-inline-trigger:focus-visible {
+  outline: 2px solid #1f6fd2;
+  outline-offset: 2px;
+}
+
+.oracle-widget-launcher-icon,
+.oracle-widget-avatar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oracle-widget-panel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(420px, calc(100vw - 32px));
+  height: min(640px, calc(100vh - 32px));
+  display: grid;
+  grid-template-rows: 120px 1fr;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 30px 70px rgba(7, 15, 27, 0.28);
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.oracle-widget-band {
+  position: relative;
+  background: linear-gradient(135deg, #0b2442, #133f6f);
+}
+
+.oracle-widget-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.oracle-widget-card {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  padding: 84px 22px 22px;
+}
+
+.oracle-widget-name {
+  display: inline-block;
+}
+
+.oracle-widget-avatar {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #fff, #d9e7f9 58%, #bfd6f0 100%);
+  box-shadow: 0 18px 40px rgba(15, 25, 41, 0.18);
+  transform: translateX(-50%);
+}
+
+.oracle-widget-avatar-icon {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0b2442, #1f6fd2);
+  color: #fff;
+}
+
+.oracle-widget-heading {
+  margin: 0 0 10px;
+  color: #1d2430;
+  text-align: center;
+  font-size: clamp(28px, 3vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.oracle-widget-copy {
+  margin: 0 auto 18px;
+  max-width: 290px;
+  color: #3b4250;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.oracle-widget-suggestions {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.oracle-widget-suggestion {
+  width: 100%;
+  border: 1px solid #dde4ed;
+  border-radius: 16px;
+  padding: 11px 14px;
+  background: #f6f8fb;
+  color: #1d2430;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.oracle-widget-suggestion:hover {
+  border-color: #b9cadf;
+  background: #eef4fb;
+  transform: translateY(-1px);
+}
+
+.oracle-widget-messages {
+  display: grid;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.oracle-widget-messages:empty {
+  display: none;
+}
+
+.oracle-widget-msg {
+  max-width: 86%;
+  padding: 13px 15px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.oracle-widget-msg.bot {
+  background: #f1f4f8;
+  color: #1d2430;
+}
+
+.oracle-widget-msg.user {
+  justify-self: end;
+  background: #0f3155;
+  color: #fff;
+}
+
+.oracle-widget-msg.loading {
+  opacity: 0.72;
+  font-style: italic;
+}
+
+.oracle-widget-status {
+  min-height: 18px;
+  margin-bottom: 10px;
+  color: #687180;
+  font-size: 12px;
+}
+
+.oracle-widget-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: #f1f4f8;
+}
+
+.oracle-widget-form input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #1d2430;
+  font: inherit;
+  font-size: 15px;
+}
+
+.oracle-widget-form input::placeholder {
+  color: #7b8796;
+}
+
+.oracle-widget-form input:focus {
+  outline: none;
+}
+
+.oracle-widget-submit {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  color: #0f3155;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.oracle-widget-submit:hover {
+  transform: translateX(1px);
+  background: #e8f0fb;
+}
+
+.oracle-widget-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.oracle-widget-handoff {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(15, 49, 85, 0.04), rgba(31, 111, 210, 0.08));
+}
+
+.oracle-widget-handoff[hidden] {
+  display: none;
+}
+
+.oracle-widget-handoff strong {
+  color: #0f3155;
+  font-size: 13px;
+}
+
+.oracle-widget-handoff p {
+  margin: 0;
+  color: #516072;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.oracle-widget-handoff a {
+  width: fit-content;
+  text-decoration: none;
+}
+
+.oracle-widget-button,
+.oracle-widget-inline-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  background: #0f3155;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.oracle-widget-root[data-open="true"] .oracle-widget-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.oracle-widget-root[data-open="true"] .oracle-widget-launcher {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.oracle-widget-root[data-open="true"] + .oracle-widget-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.dark-mode .oracle-widget-panel {
+  background: #0d1522;
+  box-shadow: 0 34px 78px rgba(2, 8, 18, 0.46);
+}
+
+body.dark-mode .oracle-widget-band {
+  background: linear-gradient(135deg, #061224, #0f3155);
+}
+
+body.dark-mode .oracle-widget-avatar {
+  background: radial-gradient(circle at 30% 30%, #e6edf7, #9eb7d9 56%, #6d90bc 100%);
+}
+
+body.dark-mode .oracle-widget-heading {
+  color: #f8fafc;
+}
+
+body.dark-mode .oracle-widget-copy,
+body.dark-mode .oracle-widget-status {
+  color: #b8c4d4;
+}
+
+body.dark-mode .oracle-widget-suggestion {
+  border-color: #26354a;
+  background: #121c2b;
+  color: #f8fafc;
+}
+
+body.dark-mode .oracle-widget-suggestion:hover {
+  border-color: #365271;
+  background: #172334;
+}
+
+body.dark-mode .oracle-widget-msg.bot {
+  background: #111c2a;
+  color: #f8fafc;
+}
+
+body.dark-mode .oracle-widget-form {
+  background: #111c2a;
+}
+
+body.dark-mode .oracle-widget-form input {
+  color: #f8fafc;
+}
+
+body.dark-mode .oracle-widget-submit {
+  background: #1a2839;
+  color: #dbeafe;
+}
+
+body.dark-mode .oracle-widget-submit:hover {
+  background: #24364c;
+}
+
+body.dark-mode .oracle-widget-handoff {
+  background: linear-gradient(180deg, rgba(31, 111, 210, 0.12), rgba(8, 24, 42, 0.66));
+}
+
+body.dark-mode .oracle-widget-handoff strong {
+  color: #dbeafe;
+}
+
+body.dark-mode .oracle-widget-handoff p {
+  color: #c3d2e4;
+}
+
+@media (max-width: 720px) {
+  .oracle-widget-root {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .oracle-widget-panel {
+    right: 0;
+    bottom: 0;
+    width: min(100vw - 16px, 100vw - 16px);
+    height: min(620px, calc(100vh - 16px));
+  }
+
+  .oracle-widget-launcher {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 999px;
+  }
+
+  .oracle-widget-launcher-label {
+    display: none;
+  }
+
+  .oracle-widget-card {
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
+  }
+
+  .oracle-widget-heading {
+    font-size: 24px;
+  }
+
+  .oracle-widget-copy {
+    font-size: 14px;
+  }
+
+  .oracle-widget-msg {
+    max-width: 92%;
+  }
+}
