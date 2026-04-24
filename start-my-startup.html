@@ -130,30 +130,33 @@
       <div>
         <span class="badge">Application</span>
         <h2>Send your details.</h2>
-        <p class="muted">Complete the form and send it through WhatsApp so our onboarding team can follow up.</p>
+        <p class="muted">Complete the form and we'll get back to you. You can also reach us directly via WhatsApp.</p>
       </div>
-      <form class="form" data-success data-whatsapp-form data-whatsapp-intent="Start My Startup application" data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c">
+      <form class="form" data-success data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c" id="startup-form">
         <div class="grid two">
-          <div class="field"><label>First Name *</label><input required></div>
-          <div class="field"><label>Last Name *</label><input required></div>
+          <div class="field"><label>First Name *</label><input name="firstName" required></div>
+          <div class="field"><label>Last Name *</label><input name="lastName" required></div>
         </div>
         <div class="grid two">
-          <div class="field"><label>Email Address *</label><input type="email" required></div>
-          <div class="field"><label>Contact Number *</label><input required></div>
+          <div class="field"><label>Email Address *</label><input type="email" name="email" required></div>
+          <div class="field"><label>Contact Number *</label><input name="phone" required></div>
         </div>
         <div class="grid two">
-          <div class="field"><label>Company Name *</label><input required></div>
-          <div class="field"><label>Position Held *</label><input required></div>
+          <div class="field"><label>Company Name *</label><input name="companyName" required></div>
+          <div class="field"><label>Position Held *</label><input name="position" required></div>
         </div>
         <div class="grid two">
-          <div class="field"><label>Number of Employees *</label><input type="number" required></div>
-          <div class="field"><label>Projected Annual Turnover *</label><input required></div>
+          <div class="field"><label>Number of Employees *</label><input type="number" name="employees" required></div>
+          <div class="field"><label>Projected Annual Turnover *</label><input name="turnover" required></div>
         </div>
         <div class="grid two">
-          <div class="field"><label>Months in Operation *</label><select required><option>0 Months</option><option>1-5 Months</option><option>6-11 Months</option><option>12+ Months</option></select></div>
-          <div class="field"><label>Co. Reg No</label><input></div>
+          <div class="field"><label>Months in Operation *</label><select name="monthsInOperation" required><option>0 Months</option><option>1-5 Months</option><option>6-11 Months</option><option>12+ Months</option></select></div>
+          <div class="field"><label>Co. Reg No</label><input name="regNo"></div>
         </div>
-        <button class="btn primary" type="submit">Send Application on WhatsApp</button>
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Send Application</button>
+          <button class="btn outline" type="button" id="whatsapp-send-startup" disabled title="Coming soon — WhatsApp channel via Make.com">Send via WhatsApp</button>
+        </div>
         <p class="success"></p>
       </form>
     </div>

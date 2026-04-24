@@ -45,15 +45,19 @@
           <div class="media-caption"><strong>Campaign Support</strong><span>Offers built around real founders, not generic templates.</span></div>
         </div>
       </div>
-      <form class="form" data-success data-whatsapp-form data-whatsapp-intent="Boss Moms campaign application" data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c">
+      <form class="form" data-success data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c" id="boss-moms-form">
         <h3>Apply Now - 50% Off</h3>
-        <div class="field"><label>Full Name *</label><input required></div>
-        <div class="field"><label>Email Address *</label><input type="email" required></div>
-        <div class="field"><label>Phone Number *</label><input required></div>
-        <div class="field"><label>Business Name *</label><input required></div>
-        <div class="field"><label>Monthly Revenue *</label><input required></div>
-        <input type="hidden" value="Boss Mom">
-        <button class="btn primary" type="submit">Send Application on WhatsApp</button>
+        <p class="muted">Complete the form and we'll get back to you. You can also reach us directly via WhatsApp.</p>
+        <div class="field"><label>Full Name *</label><input name="fullName" required></div>
+        <div class="field"><label>Email Address *</label><input type="email" name="email" required></div>
+        <div class="field"><label>Phone Number *</label><input name="phone" required></div>
+        <div class="field"><label>Business Name *</label><input name="businessName" required></div>
+        <div class="field"><label>Monthly Revenue *</label><input name="revenue" required></div>
+        <input type="hidden" name="campaign" value="Boss Mom">
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Send Application</button>
+          <button class="btn outline" type="button" id="whatsapp-send-boss-moms" disabled title="Coming soon — WhatsApp channel via Make.com">Send via WhatsApp</button>
+        </div>
         <p class="success"></p>
       </form>
     </div>
@@ -65,16 +69,19 @@
       <p>Micro-businesses can apply for free back-office support, while corporate funders can sponsor vetted entrepreneurs for R6,000.</p>
     </div>
     <div class="split">
-      <form class="form" data-success data-whatsapp-form data-whatsapp-intent="Micro-Business Funding Hub application" data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c">
+      <form class="form" data-success data-hotkup-track="https://smart.hotkup.com/t/mymbaboard/f6647063b89c" id="funding-hub-form">
         <h3>Apply for Free Back-Office Support</h3>
-        <p class="muted">For micro-businesses earning less than R1M per year. Three months of finance, compliance, HR, marketing and admin support included.</p>
-        <div class="field"><label>Full Name *</label><input required></div>
-        <div class="field"><label>Email Address *</label><input type="email" required></div>
-        <div class="field"><label>Phone Number *</label><input required></div>
-        <div class="field"><label>Business Name *</label><input required></div>
-        <div class="grid two"><div class="field"><label>Annual Turnover *</label><input required></div><div class="field"><label>Number of Staff *</label><input type="number" required></div></div>
-        <div class="field"><label>Business Motivation *</label><textarea required></textarea></div>
-        <button class="btn primary" type="submit">Send Application on WhatsApp</button>
+        <p class="muted">Complete the form and we'll get back to you. You can also reach us directly via WhatsApp.</p>
+        <div class="field"><label>Full Name *</label><input name="fullName" required></div>
+        <div class="field"><label>Email Address *</label><input type="email" name="email" required></div>
+        <div class="field"><label>Phone Number *</label><input name="phone" required></div>
+        <div class="field"><label>Business Name *</label><input name="businessName" required></div>
+        <div class="grid two"><div class="field"><label>Annual Turnover *</label><input name="turnover" required></div><div class="field"><label>Number of Staff *</label><input type="number" name="staff" required></div></div>
+        <div class="field"><label>Business Motivation *</label><textarea name="motivation" required></textarea></div>
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Send Application</button>
+          <button class="btn outline" type="button" id="whatsapp-send-funding" disabled title="Coming soon — WhatsApp channel via Make.com">Send via WhatsApp</button>
+        </div>
         <p class="success"></p>
       </form>
       <div>
