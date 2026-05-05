@@ -311,6 +311,10 @@ body.dark-mode .field input,body.dark-mode .field select,body.dark-mode .field t
 body.dark-mode .success a{color:var(--teal);}
 .form-actions{display:flex;gap:12px;flex-wrap:wrap;}
 .form-actions .btn{flex:1;min-width:160px;}
+.external-form-panel{align-content:start;}
+.external-form-panel h3{margin:0;}
+.external-form-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.external-form-actions .btn{flex:1;min-width:180px;}
 .btn:disabled{opacity:.42;cursor:not-allowed;pointer-events:none;}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
 .visual-panel,
