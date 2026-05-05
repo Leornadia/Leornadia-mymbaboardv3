@@ -1,4 +1,6 @@
 const WA_URL = 'https://wa.me/27673377523';
+const HOTKUP_PROXY_URL = window.MYMBA_HOTKUP_PROXY_URL || 'https://my-mba-board.vercel.app/api/hotkup-submit';
+const HOTKUP_DIRECT_URL = 'https://smart.hotkup.com/t/mymbaboard/faa0acc2bc44';
 
 function initMobileMenu() {
   const nav = document.querySelector('.nav');
@@ -145,6 +147,138 @@ document.querySelectorAll('form[data-success], form[data-whatsapp-form]').forEac
     }
     form.reset();
   });
+});
+
+const hotkupFieldRows = [
+  [
+    { label: 'First Name', name: 'firstName', required: true },
+    { label: 'Last Name', name: 'lastName', required: true }
+  ],
+  [
+    { label: 'Email Address', name: 'email', type: 'email', required: true },
+    { label: 'Contact Number', name: 'phone', type: 'tel', required: true }
+  ],
+  [
+    { label: 'Address', name: 'address', required: true }
+  ],
+  [
+    { label: 'Company Name', name: 'companyName', required: true }
+  ],
+  [
+    { label: 'Position held within the company', name: 'position', required: true }
+  ],
+  [
+    { label: 'Number of employees', name: 'employees', inputMode: 'numeric', required: true },
+    { label: 'Number of months in operation', name: 'monthsInOperation', inputMode: 'numeric', required: true }
+  ],
+  [
+    { label: 'Projected annual turnover in the current year (R)', name: 'turnover', inputMode: 'numeric', required: true }
+  ]
+];
+
+function createHotkupField(field) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'field';
+
+  const label = document.createElement('label');
+  label.textContent = `${field.label}${field.required ? ' *' : ''}`;
+  wrapper.appendChild(label);
+
+  const input = document.createElement('input');
+  input.name = field.name;
+  input.type = field.type || 'text';
+  if (field.inputMode) input.inputMode = field.inputMode;
+  if (field.required) input.required = true;
+  wrapper.appendChild(input);
+
+  return wrapper;
+}
+
+function createHotkupForm(panel) {
+  const form = document.createElement('form');
+  form.className = 'hotkup-embedded-form';
+  form.setAttribute('data-hotkup-embedded-form', '');
+
+  hotkupFieldRows.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = row.length > 1 ? 'grid two' : 'grid one';
+    row.forEach(field => rowEl.appendChild(createHotkupField(field)));
+    form.appendChild(rowEl);
+  });
+
+  const optional = document.createElement('details');
+  optional.className = 'optional-fields';
+  optional.innerHTML = '<summary>Company registration number, if applicable</summary>';
+  optional.appendChild(createHotkupField({
+    label: 'Company Registration Number',
+    name: 'regNo',
+    type: 'number'
+  }));
+  form.appendChild(optional);
+
+  const actions = document.createElement('div');
+  actions.className = 'form-actions';
+
+  const submit = document.createElement('button');
+  submit.className = 'btn primary';
+  submit.type = 'submit';
+  submit.textContent = panel.dataset.submitText || 'Submit Enquiry';
+  actions.appendChild(submit);
+
+  const fallback = document.createElement('a');
+  fallback.className = 'btn outline';
+  fallback.href = HOTKUP_DIRECT_URL;
+  fallback.target = '_blank';
+  fallback.rel = 'noopener';
+  fallback.textContent = 'Open HotKup Form';
+  actions.appendChild(fallback);
+  form.appendChild(actions);
+
+  const status = document.createElement('p');
+  status.className = 'success hotkup-status';
+  status.setAttribute('aria-live', 'polite');
+  form.appendChild(status);
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    submit.disabled = true;
+    submit.textContent = 'Submitting...';
+    status.textContent = '';
+    status.classList.remove('show', 'error');
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    payload.clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Johannesburg';
+
+    try {
+      const response = await fetch(HOTKUP_PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || 'HotKup submission failed');
+
+      status.textContent = 'Information submitted. Thank you.';
+      status.classList.add('show');
+      form.reset();
+    } catch (error) {
+      status.textContent = 'We could not submit the form automatically. Please use the HotKup form link or WhatsApp.';
+      status.classList.add('show', 'error');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = panel.dataset.submitText || 'Submit Enquiry';
+    }
+  });
+
+  return form;
+}
+
+document.querySelectorAll('[data-hotkup-form-panel]').forEach(panel => {
+  const mount = panel.querySelector('[data-hotkup-form-mount]');
+  if (mount) mount.appendChild(createHotkupForm(panel));
 });
 
 const messages = document.querySelector('[data-oracle-messages]');
