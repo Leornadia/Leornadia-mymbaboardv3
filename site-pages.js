@@ -1,51 +1,5 @@
 const WA_URL = 'https://wa.me/27673377523';
 
-/* HotKup lead tracking */
-function buildHotkupPayload(form) {
-  const payload = new URLSearchParams();
-  payload.set('formId', form.id || '');
-  payload.set('formTitle', form.querySelector('h3')?.textContent?.trim() || document.title || 'Website form');
-  payload.set('pageUrl', window.location.href);
-  payload.set('submittedAt', new Date().toISOString());
-
-  form.querySelectorAll('input, select, textarea').forEach(control => {
-    const type = (control.getAttribute('type') || '').toLowerCase();
-    if (type === 'submit' || type === 'button' || !control.name) return;
-    payload.set(control.name, control.value.trim());
-  });
-
-  return payload;
-}
-
-function buildHotkupUrl(trackingUrl, form) {
-  if (!form) return trackingUrl;
-
-  try {
-    const url = new URL(trackingUrl, window.location.href);
-    buildHotkupPayload(form).forEach((value, key) => {
-      url.searchParams.set(key, value);
-    });
-    return url.toString();
-  } catch (_) {
-    return trackingUrl;
-  }
-}
-
-function fireHotkupTracking(trackingUrl, form) {
-  try {
-    const iframe = document.createElement('iframe');
-    iframe.src = buildHotkupUrl(trackingUrl, form);
-    iframe.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;border:none;';
-    iframe.setAttribute('aria-hidden', 'true');
-    iframe.tabIndex = -1;
-    document.body.appendChild(iframe);
-    // Clean up after the tracking pixel has loaded
-    setTimeout(() => { try { iframe.remove(); } catch (_) {} }, 10000);
-  } catch (_) {
-    // Tracking should never break the main flow
-  }
-}
-
 function initMobileMenu() {
   const nav = document.querySelector('.nav');
   if (!nav || document.querySelector('.mobile-menu-toggle')) return;
@@ -181,16 +135,8 @@ document.querySelectorAll('form[data-success], form[data-whatsapp-form]').forEac
       showWhatsAppSuccess(form, whatsappUrl);
       window.open(whatsappUrl, '_blank', 'noopener');
 
-      // Fire HotKup lead tracking if configured on this form
-      const hotkupUrl = form.dataset.hotkupTrack;
-      if (hotkupUrl) fireHotkupTracking(hotkupUrl, form);
-
       return;
     }
-
-    // Standard form submission — fire HotKup tracking and show success
-    const hotkupUrl = form.dataset.hotkupTrack;
-    if (hotkupUrl) fireHotkupTracking(hotkupUrl, form);
 
     const success = form.querySelector('.success');
     if (success) {
