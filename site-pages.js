@@ -1,6 +1,5 @@
 const WA_URL = 'https://wa.me/27673377523';
 const HOTKUP_PROXY_URL = window.MYMBA_HOTKUP_PROXY_URL || 'https://my-mba-board.vercel.app/api/hotkup-submit';
-const HOTKUP_DIRECT_URL = 'https://smart.hotkup.com/t/mymbaboard/faa0acc2bc44';
 
 function initMobileMenu() {
   const nav = document.querySelector('.nav');
@@ -225,13 +224,6 @@ function createHotkupForm(panel) {
   submit.textContent = panel.dataset.submitText || 'Submit Enquiry';
   actions.appendChild(submit);
 
-  const fallback = document.createElement('a');
-  fallback.className = 'btn outline';
-  fallback.href = HOTKUP_DIRECT_URL;
-  fallback.target = '_blank';
-  fallback.rel = 'noopener';
-  fallback.textContent = 'Open HotKup Form';
-  actions.appendChild(fallback);
   form.appendChild(actions);
 
   const status = document.createElement('p');
@@ -265,7 +257,7 @@ function createHotkupForm(panel) {
       status.classList.add('show');
       form.reset();
     } catch (error) {
-      status.textContent = 'We could not submit the form automatically. Please use the HotKup form link or WhatsApp.';
+      status.textContent = 'We could not submit the form automatically. Please try again or contact us on WhatsApp.';
       status.classList.add('show', 'error');
     } finally {
       submit.disabled = false;
